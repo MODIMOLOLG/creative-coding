@@ -1,29 +1,47 @@
-let p = 0;
-let s = 0;
-let points = 1000;
-let freq1 = 7;
-let freq2 = 20;
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  noFill();
-  stroke(255);
+  noCursor();
+  textAlign(CENTER, CENTER);
+  textSize(100);
+  rectMode(CENTER);
 }
 
+let px = 0;
+let py = 0;
+
 function draw() {
-  background(0);
-  p += 0.02;
-  translate(width / 2, height / 2);
-  let r1 = width / 2 - s;
+  px = lerp(px, mouseX, 0.1);
+  py = lerp(py, mouseY, 0.1);
 
-  beginShape();
-  for (let i = 0; i <= points; i++) {
-    let angle = TWO_PI / points * i;
-    let x = cos(angle * p) * r1 - cos(angle * freq2 + p) * s;
-    let y = sin(angle * freq1) * r1 + sin(angle * freq2 + p) * s;
-    vertex(x, y);
+  // scene 1, "dark"
+  background(30);
+  fill(255, 50);
+  noStroke();
+  for (let i = 0; i < width; i += 100) {
+    for (let j = 0; j < height; j += 100) {
+      square(sin(frameCount * 0.03 + i) * 10 + i, sin(frameCount * 0.03 + j) * 10 + j, sin(frameCount * 0.03 + i) * 10 + 50);
+    }
   }
-  endShape();
+  fill(255);
+  text("DARK", width / 2, height / 2);
+  
+  drawingContext.save(); 
+  drawingContext.beginPath(); 
+  drawingContext.arc(px, py, 150, 0, TWO_PI); 
+  drawingContext.clip();
 
-  s = cos(p) * (width / 2);
+  // scene 2, "light"
+  background(255, 255, 200);
+  fill(255, 255, 0);
+  fill(100, 0, 0);
+  for (let i = 0; i < width; i += 100) {
+    for (let j = 0; j < height; j += 100) {
+      circle(i, j, 80);
+      fill(255, 255, 0, sin(frameCount * 0.06 + i + j) * 100 + 50);
+    }
+  }
+  fill(0);
+  text("LIGHT", width / 2, height / 2);
+
+  drawingContext.restore();
 }
