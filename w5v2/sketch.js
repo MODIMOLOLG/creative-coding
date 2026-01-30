@@ -1,24 +1,23 @@
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  angleMode(DEGREES);
   noStroke();
 }
 
 function draw() {
-  let numPetals = 12;
-  let flowerX = width / 2;
-  let flowerY = height / 2;
-  let petalColor = color(255, 100, 150, 200);
-  let centerColor = color(255, 220, 0);   
-  translate(flowerX, flowerY);
-  let angleStep = 360 / numPetals;
-  if (mouseIsPressed) {
-    drawHyeroglyph(
-      
-    );
-  }
-}
+  background(30, 30, 50, 50);
+  translate(width / 2, height / 2); 
+  let t = frameCount * 0.02;
 
-function drawHyeroglyph() {
-  
+  let waveValue = sin(t);
+  let currentSize = map(waveValue, -1, 1, 100, 250);
+  let currentRotation = map(waveValue, -1, 1, -PI / 8, PI / 8);
+
+  rotate(currentRotation);
+
+  fill(100, 200, 255, 100);
+  ellipse(-30, 0, currentSize, currentSize * 0.9);
+
+  fill(150, 255, 200, 100);
+  ellipse(30, 0, currentSize * 0.9, currentSize);
+
 }
