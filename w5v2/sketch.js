@@ -1,23 +1,41 @@
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  noStroke();
+  background(0);
+  rectMode(CENTER);
+  angleMode(DEGREES);
+  noLoop();
 }
 
 function draw() {
-  background(30, 30, 50, 50);
-  translate(width / 2, height / 2); 
-  let t = frameCount * 0.02;
+  for (let i = 0; i < 25; i++) {
+    let x = random(width);
+    let y = random(height);
+    let size = random(0.5, 2.5);
+    let r = random(100, 255);
+    let g = random(50, 150);
 
-  let waveValue = sin(t);
-  let currentSize = map(waveValue, -1, 1, 100, 250);
-  let currentRotation = map(waveValue, -1, 1, -PI / 8, PI / 8);
+    drawRandomInterestigNeonGlyphs(x, y, size, r, g);
+  }
+}
 
-  rotate(currentRotation);
+function drawRandomInterestigNeonGlyphs(posX, posY, s, r, g) {
+  push();
+  translate(posX, posY);
+  scale(s);
+  rotate(random(360));
 
-  fill(100, 200, 255, 100);
-  ellipse(-30, 0, currentSize, currentSize * 0.9);
+  noStroke();
+  fill(r, g, 200, 50);
+  circle(0, 0, 100);
 
-  fill(150, 255, 200, 100);
-  ellipse(30, 0, currentSize * 0.9, currentSize);
+  noFill();
+  stroke(r, g, 255, 200);
+  strokeWeight(2);
+  rect(0, 0, 70, 70);
 
+  stroke(255, 100);
+  strokeWeight(1);
+  triangle(0, -60, -50, 40, 50, 40);
+
+  pop();
 }
