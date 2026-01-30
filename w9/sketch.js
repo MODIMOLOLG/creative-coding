@@ -32,12 +32,10 @@ function draw() {
 
   // scene 2, "light"
   background(255, 255, 200);
-  fill(255, 255, 0);
-  fill(100, 0, 0);
   for (let i = 0; i < width; i += 100) {
     for (let j = 0; j < height; j += 100) {
-      circle(i, j, 80);
       fill(255, 255, 0, sin(frameCount * 0.06 + i + j) * 100 + 50);
+      circle(i, j, 80);
     }
   }
   fill(0);
